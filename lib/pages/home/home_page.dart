@@ -100,6 +100,9 @@ class _HomePageState extends State<HomePage> {
                   return const SizedBox();
                 },
               ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
