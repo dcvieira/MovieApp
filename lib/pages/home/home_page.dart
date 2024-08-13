@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/pages/home/widgets/movies_horizontal_list.dart';
 import 'package:movie_app/pages/home/widgets/nowplaying_list.dart';
-import 'package:movie_app/services/api_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,32 +10,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ApiServices apiServices = ApiServices();
-
-  late Future<Result> popular;
-  late Future<Result> nowPlaying;
-  late Future<Result> upcomingFuture;
-
-  @override
-  void initState() {
-    popular = apiServices.getPopularMovies();
-    nowPlaying = apiServices.getNowPlayingMovies();
-    upcomingFuture = apiServices.getUpcomingMovies();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie App'),
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
                   'Now Playing',
@@ -48,19 +32,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              FutureBuilder<Result>(
-                future: nowPlaying,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return NowPlayingList(result: snapshot.data!);
-                  }
-                  return const SizedBox();
-                },
-              ),
-              const SizedBox(
+              NowPlayingList(),
+              SizedBox(
                 height: 20,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
                   'Popular',
@@ -71,16 +47,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              FutureBuilder<Result>(
-                future: popular,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return MoviesHorizontalList(result: snapshot.data!);
-                  }
-                  return const SizedBox();
-                },
-              ),
-              const Padding(
+              MoviesHorizontalList(),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
                   'Upcoming',
@@ -91,16 +59,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              FutureBuilder<Result>(
-                future: upcomingFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return MoviesHorizontalList(result: snapshot.data!);
-                  }
-                  return const SizedBox();
-                },
-              ),
-              const SizedBox(
+              MoviesHorizontalList(),
+              SizedBox(
                 height: 20,
               ),
             ],

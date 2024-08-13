@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
-import 'package:movie_app/pages/top_rated/widgets/top_rated_movie.dart';
 import 'package:movie_app/services/api_services.dart';
 
 class TopRatedPage extends StatefulWidget {
@@ -12,11 +11,11 @@ class TopRatedPage extends StatefulWidget {
 
 class _TopRatedPageState extends State<TopRatedPage> {
   ApiServices apiServices = ApiServices();
-  late Future<Result> topRatedMoviesFuture;
+  List<Movie> movies = [];
 
   @override
   void initState() {
-    topRatedMoviesFuture = apiServices.getTopRatedMovies();
+    movies = apiServices.getMovies();
     super.initState();
   }
 
@@ -25,23 +24,6 @@ class _TopRatedPageState extends State<TopRatedPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Top Hated Movies'),
-      ),
-      body: FutureBuilder<Result>(
-        future: topRatedMoviesFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.movies.length,
-              itemBuilder: (context, index) {
-                var movie = snapshot.data!.movies[index];
-                return TopHatedMovie(movie: movie);
-              },
-            );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
       ),
     );
   }
