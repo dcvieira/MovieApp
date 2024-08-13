@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/models/movie_model.dart';
 
-class TopHatedMovie extends StatelessWidget {
-  const TopHatedMovie({
+class TopRatedMovie extends StatelessWidget {
+  const TopRatedMovie({
     super.key,
     required this.movie,
   });

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:movie_app/common/myhttp.dart';
 import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/widgets/bottom_nav_bar.dart';
 
 void main() {
+   HttpOverrides.global = new MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: kBackgoundColor,
             elevation: 0,
           ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: kBackgoundColor,
           )),
       home: const BottomNavBar(),
