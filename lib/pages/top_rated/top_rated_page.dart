@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/pages/top_rated/widgets/top_rated_movie.dart';
 import 'package:movie_app/services/api_services.dart';
 
 class TopRatedPage extends StatefulWidget {
@@ -25,6 +26,11 @@ class _TopRatedPageState extends State<TopRatedPage> {
       appBar: AppBar(
         title: const Text('Top Rated Movies'),
       ),
+      body: ListView.builder(
+          itemCount: movies.length,
+          itemBuilder: (context, index) {
+            return TopRatedMovie(movie: movies[index]);
+          }),
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/widgets/bottom_nav_bar.dart';
 
 void main() {
-   HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 

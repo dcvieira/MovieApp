@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/widgets/custom_card_thumbnail.dart';
 
 class NowPlayingList extends StatefulWidget {
-  const NowPlayingList({super.key});
+  final List<Movie> movies;
+  const NowPlayingList({super.key, required this.movies});
 
   @override
   State<NowPlayingList> createState() => _NowPlayingListState();
 }
 
 class _NowPlayingListState extends State<NowPlayingList> {
+  final PageController _pageController = PageController(viewportFraction: 0.9);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.5,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: widget.movies.length,
+            itemBuilder: (context, index) {
+              return CustomCardThumbnail(
+                imageAsset: widget.movies[index].posterPath,
+              );
+            },
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
