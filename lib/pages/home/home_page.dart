@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ApiServices apiServices = ApiServices();
-  List<Movie> nowPlayingMovies = [];
+  late Future<List<Movie>> nowPlayingMovies;
 
   @override
   void initState() {
@@ -43,7 +43,26 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              NowPlayingList(movies: nowPlayingMovies),
+              FutureBuilder<List<Movie>>(
+                  future: nowPlayingMovies,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return NowPlayingList(movies: snapshot.data!);
+                    }
+                    return const Center(
+                      child: Text('No data found'),
+                    );
+                  }),
               const SizedBox(
                 height: 20,
               ),
