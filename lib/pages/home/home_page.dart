@@ -77,7 +77,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const MoviesHorizontalList(),
+              FutureBuilder(
+                  future: nowPlayingMovies,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    }
+                    return MoviesHorizontalList(
+                      movies: snapshot.data!,
+                    );
+                  }),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
@@ -89,7 +105,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const MoviesHorizontalList(),
+              FutureBuilder(
+                  future: nowPlayingMovies,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    }
+                    return MoviesHorizontalList(
+                      movies: snapshot.data!,
+                    );
+                  }),
               const SizedBox(
                 height: 20,
               ),
