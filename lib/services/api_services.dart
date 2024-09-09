@@ -1,8 +1,13 @@
+import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/models/movie_model.dart';
+
+const baseUrl = 'https://api.themoviedb.org/3/';
+const key = '?api_key=$apiKey';
 
 class ApiServices {
   Future<List<Movie>> getMovies() async {
-    await Future.delayed(Duration(seconds: 5)); // Simulação de carregamento
+    await Future.delayed(
+        const Duration(seconds: 5)); // Simulação de carregamento
     // Cria a lista de filmes
 
     final movie1 = Movie(

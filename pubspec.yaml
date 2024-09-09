@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  http: ^1.2.0
+  http: ^1.2.2
   carousel_slider: ^4.2.1
   cached_network_image: ^3.3.1
 

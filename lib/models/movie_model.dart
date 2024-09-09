@@ -1,3 +1,28 @@
+import 'dart:convert';
+
+class Result {
+  int page;
+  List<Movie> movies;
+  int totalPages;
+  int totalResults;
+
+  Result({
+    required this.page,
+    required this.movies,
+    required this.totalPages,
+    required this.totalResults,
+  });
+
+  factory Result.fromRawJson(String str) => Result.fromJson(json.decode(str));
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        page: json["page"],
+        movies: List<Movie>.from(json["results"].map((x) => Movie.fromJson(x))),
+        totalPages: json["total_pages"],
+        totalResults: json["total_results"],
+      );
+}
+
 class Movie {
   bool adult;
   String backdropPath;
@@ -30,6 +55,8 @@ class Movie {
     required this.voteAverage,
     required this.voteCount,
   });
+
+  factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         adult: json["adult"] ?? false,

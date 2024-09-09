@@ -39,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.trending_up), label: 'Top Hated'),
+                icon: Icon(Icons.trending_up), label: 'Top Rated'),
           ],
           onTap: (pagina) {
             pc.animateToPage(
