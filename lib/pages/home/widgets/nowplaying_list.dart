@@ -14,6 +14,7 @@ class _NowPlayingListState extends State<NowPlayingList> {
   final PageController _pageController =
       PageController(initialPage: 0, viewportFraction: 0.9);
   int currentPage = 0;
+  final maxItems = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,9 @@ class _NowPlayingListState extends State<NowPlayingList> {
                   currentPage = page;
                 });
               },
-              itemCount: widget.movies.length,
+              itemCount: widget.movies.length > maxItems
+                  ? maxItems
+                  : widget.movies.length,
               itemBuilder: (context, index) {
                 return CustomCardThumbnail(
                   imageAsset: widget.movies[index].posterPath,
@@ -44,11 +47,15 @@ class _NowPlayingListState extends State<NowPlayingList> {
   }
 
   List<Widget> _buildPageIndicators() {
-    List<Widget> indicators = [];
-    for (int i = 0; i < widget.movies.length; i++) {
-      indicators.add(_buildIndicator(i == currentPage));
+    final totalItems = widget.movies.length;
+    final int to = totalItems > maxItems ? maxItems : totalItems;
+
+    List<Widget> list = [];
+    for (int i = 0; i < to; i++) {
+      list.add(
+          i == currentPage ? _buildIndicator(true) : _buildIndicator(false));
     }
-    return indicators;
+    return list;
   }
 
   Widget _buildIndicator(bool isActive) {
